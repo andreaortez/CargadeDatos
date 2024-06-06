@@ -44,9 +44,9 @@ public class GUI extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         tf_FilepathA = new javax.swing.JTextField();
         bt_buscarA = new javax.swing.JButton();
-        bt_a√±adirP = new javax.swing.JPanel();
+        bt_aÒadirP = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
-        bt_a√±adirP1 = new javax.swing.JPanel();
+        bt_cargarA = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -106,50 +106,50 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel2.add(bt_buscarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 240, -1, 40));
 
-        bt_a√±adirP.setBackground(new java.awt.Color(195, 22, 28));
-        bt_a√±adirP.addMouseListener(new java.awt.event.MouseAdapter() {
+        bt_aÒadirP.setBackground(new java.awt.Color(195, 22, 28));
+        bt_aÒadirP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_a√±adirPMouseClicked(evt);
+                bt_aÒadirPMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bt_a√±adirPMouseEntered(evt);
+                bt_aÒadirPMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                bt_a√±adirPMouseExited(evt);
+                bt_aÒadirPMouseExited(evt);
             }
         });
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel69.setForeground(new java.awt.Color(255, 255, 255));
         jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel69.setText("A√±adir Empleo");
+        jLabel69.setText("AÒadir Empleo");
 
-        javax.swing.GroupLayout bt_a√±adirPLayout = new javax.swing.GroupLayout(bt_a√±adirP);
-        bt_a√±adirP.setLayout(bt_a√±adirPLayout);
-        bt_a√±adirPLayout.setHorizontalGroup(
-            bt_a√±adirPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout bt_aÒadirPLayout = new javax.swing.GroupLayout(bt_aÒadirP);
+        bt_aÒadirP.setLayout(bt_aÒadirPLayout);
+        bt_aÒadirPLayout.setHorizontalGroup(
+            bt_aÒadirPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel69, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        bt_a√±adirPLayout.setVerticalGroup(
-            bt_a√±adirPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bt_a√±adirPLayout.createSequentialGroup()
+        bt_aÒadirPLayout.setVerticalGroup(
+            bt_aÒadirPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bt_aÒadirPLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel2.add(bt_a√±adirP, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, 120, 40));
+        jPanel2.add(bt_aÒadirP, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, 120, 40));
 
-        bt_a√±adirP1.setBackground(new java.awt.Color(195, 22, 28));
-        bt_a√±adirP1.addMouseListener(new java.awt.event.MouseAdapter() {
+        bt_cargarA.setBackground(new java.awt.Color(195, 22, 28));
+        bt_cargarA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_a√±adirP1MouseClicked(evt);
+                bt_cargarAMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bt_a√±adirP1MouseEntered(evt);
+                bt_cargarAMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                bt_a√±adirP1MouseExited(evt);
+                bt_cargarAMouseExited(evt);
             }
         });
 
@@ -158,21 +158,21 @@ public class GUI extends javax.swing.JFrame {
         jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel70.setText("Cargar Archivos");
 
-        javax.swing.GroupLayout bt_a√±adirP1Layout = new javax.swing.GroupLayout(bt_a√±adirP1);
-        bt_a√±adirP1.setLayout(bt_a√±adirP1Layout);
-        bt_a√±adirP1Layout.setHorizontalGroup(
-            bt_a√±adirP1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout bt_cargarALayout = new javax.swing.GroupLayout(bt_cargarA);
+        bt_cargarA.setLayout(bt_cargarALayout);
+        bt_cargarALayout.setHorizontalGroup(
+            bt_cargarALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel70, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        bt_a√±adirP1Layout.setVerticalGroup(
-            bt_a√±adirP1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bt_a√±adirP1Layout.createSequentialGroup()
+        bt_cargarALayout.setVerticalGroup(
+            bt_cargarALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bt_cargarALayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel2.add(bt_a√±adirP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 120, -1));
+        jPanel2.add(bt_cargarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
@@ -203,7 +203,7 @@ public class GUI extends javax.swing.JFrame {
                 tf_FilepathS.setText(archivoS.getName());
 
             } else {
-                JOptionPane.showMessageDialog(this, "¬°Ocurri√≥ un error!", "Warning", WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "°OcurriÛ un error!", "Warning", WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -223,45 +223,46 @@ public class GUI extends javax.swing.JFrame {
                 tf_FilepathA.setText(archivoA.getName());
 
             } else {
-                JOptionPane.showMessageDialog(this, "¬°Ocurri√≥ un error!", "Warning", WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "°OcurriÛ un error!", "Warning", WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
-    private void bt_a√±adirPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirPMouseClicked
+    private void bt_aÒadirPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_aÒadirPMouseClicked
 
-    }//GEN-LAST:event_bt_a√±adirPMouseClicked
+    }//GEN-LAST:event_bt_aÒadirPMouseClicked
 
-    private void bt_a√±adirPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirPMouseEntered
-        bt_a√±adirP.setBackground(new Color(153, 0, 0));
-    }//GEN-LAST:event_bt_a√±adirPMouseEntered
+    private void bt_aÒadirPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_aÒadirPMouseEntered
+        bt_aÒadirP.setBackground(new Color(153, 0, 0));
+    }//GEN-LAST:event_bt_aÒadirPMouseEntered
 
-    private void bt_a√±adirPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirPMouseExited
-        bt_a√±adirP.setBackground(new Color(195, 22, 28));
-    }//GEN-LAST:event_bt_a√±adirPMouseExited
+    private void bt_aÒadirPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_aÒadirPMouseExited
+        bt_aÒadirP.setBackground(new Color(195, 22, 28));
+    }//GEN-LAST:event_bt_aÒadirPMouseExited
 
-    private void bt_a√±adirP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirP1MouseClicked
+    private void bt_cargarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargarAMouseClicked
         if (tf_FilepathS.getText().isEmpty() || tf_FilepathA.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "¬°Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "°Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
         } else {
             secciones = new File(archivoS.getPath());
             secciones.openFileS(secciones);
             
             alumnos = new File(archivoA.getPath());
             alumnos.openFileA(alumnos);
-            JOptionPane.showMessageDialog(this, "¬°Archivo cargado con √©xito!", "Notification", INFORMATION_MESSAGE);
+            
+            JOptionPane.showMessageDialog(this, "°Archivo cargado con Èxito!", "Notification", INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_bt_a√±adirP1MouseClicked
+    }//GEN-LAST:event_bt_cargarAMouseClicked
 
-    private void bt_a√±adirP1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirP1MouseEntered
-        bt_a√±adirP.setBackground(new Color(153, 0, 0));
-    }//GEN-LAST:event_bt_a√±adirP1MouseEntered
+    private void bt_cargarAMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargarAMouseEntered
+        bt_cargarA.setBackground(new Color(153, 0, 0));
+    }//GEN-LAST:event_bt_cargarAMouseEntered
 
-    private void bt_a√±adirP1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_a√±adirP1MouseExited
-        bt_a√±adirP.setBackground(new Color(195, 22, 28));
-    }//GEN-LAST:event_bt_a√±adirP1MouseExited
+    private void bt_cargarAMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargarAMouseExited
+        bt_cargarA.setBackground(new Color(195, 22, 28));
+    }//GEN-LAST:event_bt_cargarAMouseExited
 
     /**
      * @param args the command line arguments
@@ -299,10 +300,10 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bt_a√±adirP;
-    private javax.swing.JPanel bt_a√±adirP1;
+    private javax.swing.JPanel bt_aÒadirP;
     private javax.swing.JButton bt_buscarA;
     private javax.swing.JButton bt_buscarS;
+    private javax.swing.JPanel bt_cargarA;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;

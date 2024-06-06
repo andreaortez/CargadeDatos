@@ -4,10 +4,17 @@
  */
 package cargadedatos;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 /**
  *
@@ -19,11 +26,23 @@ public class File extends java.io.File {
     private String metadata;
     private String[] campos;
     private ArrayList<String> registros = new ArrayList();
+    Connection connection;
 
     public File(String pathname) {
         super(pathname);
         this.file = new java.io.File(pathname);
         this.metadata = "";
+
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "1234";
+
+        try {
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+            System.out.println("funciono");
+
+        } catch (Exception ex) {
+        }
     }
 
     public java.io.File getFile() {
@@ -84,15 +103,22 @@ public class File extends java.io.File {
 
     public void openFileA(java.io.File archivo) {
         this.file = archivo;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
         System.out.println("----------ALUMNOS---------");
         if (file.exists()) {
             try {
                 Scanner sc = new Scanner(new FileInputStream(file));
                 metadata = sc.nextLine();
                 int tam1 = metadata.length() - 1;
-                metadata = metadata.substring(0, tam1);
+                char c = metadata.charAt(tam1);
+
+                if (c == ',') {
+                    metadata = metadata.substring(0, tam1);
+                }
 
                 System.out.println(metadata);
+                String s = metadata + "\n";
 
                 String record = new String();
                 if (archivo.exists()) {
@@ -108,10 +134,17 @@ public class File extends java.io.File {
                         }
 
                         System.out.println(record);
+                        s += record + "\n";
                         registros.add(record);
-                    }
-                }
 
+                    }
+                    fw = new FileWriter(archivo, false);
+                    bw = new BufferedWriter(fw);
+                    bw.write(s);
+                    bw.flush();
+                }
+                bw.close();
+                fw.close();
                 sc.close();
             } catch (Exception ex) {
             }
