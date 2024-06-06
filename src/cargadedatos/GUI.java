@@ -5,7 +5,6 @@
 package cargadedatos;
 
 import java.awt.Color;
-import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -18,8 +17,10 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 public class GUI extends javax.swing.JFrame {
 
     File secciones = null;
-    File estudiantes = null;
-    
+    File alumnos = null;
+    java.io.File archivoS = null;
+    java.io.File archivoA = null;
+
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -36,7 +37,6 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         tf_FilepathS = new javax.swing.JTextField();
         bt_buscarS = new javax.swing.JButton();
@@ -48,6 +48,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel69 = new javax.swing.JLabel();
         bt_añadirP1 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,19 +57,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(27, 43, 88));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jaguar (1).png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tf_FilepathS.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        tf_FilepathS.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tf_FilepathS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_FilepathSActionPerformed(evt);
             }
         });
-        jPanel2.add(tf_FilepathS, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 250, 40));
+        jPanel2.add(tf_FilepathS, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 490, 40));
 
         bt_buscarS.setText("...");
         bt_buscarS.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -76,21 +74,21 @@ public class GUI extends javax.swing.JFrame {
                 bt_buscarSMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_buscarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, 40));
+        jPanel2.add(bt_buscarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, 40));
 
         jLabel36.setBackground(new java.awt.Color(0, 0, 0));
         jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(51, 51, 51));
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("Elija el archivo de secciones:");
-        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 320, -1));
+        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 650, -1));
 
         jLabel37.setBackground(new java.awt.Color(0, 0, 0));
         jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(51, 51, 51));
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setText("Elija el archivo de alumnos:");
-        jPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 320, -1));
+        jPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 650, -1));
 
         tf_FilepathA.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         tf_FilepathA.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +96,7 @@ public class GUI extends javax.swing.JFrame {
                 tf_FilepathAActionPerformed(evt);
             }
         });
-        jPanel2.add(tf_FilepathA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 250, 40));
+        jPanel2.add(tf_FilepathA, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 490, 40));
 
         bt_buscarA.setText("...");
         bt_buscarA.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,7 +104,7 @@ public class GUI extends javax.swing.JFrame {
                 bt_buscarAMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_buscarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, -1, 40));
+        jPanel2.add(bt_buscarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 240, -1, 40));
 
         bt_añadirP.setBackground(new java.awt.Color(195, 22, 28));
         bt_añadirP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -174,14 +172,20 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(bt_añadirP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, -1));
+        jPanel2.add(bt_añadirP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 120, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 350, 400));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Carga de Archivos");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 650, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 650, 400));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/unitec blanco.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -195,11 +199,11 @@ public class GUI extends javax.swing.JFrame {
             JFileChooser jfc = new JFileChooser();
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                secciones = jfc.getSelectedFile();
-                tf_FilepathS.setText(secciones.getName());
+                archivoS = jfc.getSelectedFile();
+                tf_FilepathS.setText(archivoS.getName());
 
             } else {
-                JOptionPane.showMessageDialog(this, "¡Archivo no soportado!", "Warning", WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "¡Ocurrió un error!", "Warning", WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,11 +215,23 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_FilepathAActionPerformed
 
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
-        // TODO add your handling code here:
+        try {
+            JFileChooser jfc = new JFileChooser();
+            int seleccion = jfc.showOpenDialog(this);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                archivoA = jfc.getSelectedFile();
+                tf_FilepathA.setText(archivoA.getName());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "¡Ocurrió un error!", "Warning", WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_añadirPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_añadirPMouseClicked
-        
+
     }//GEN-LAST:event_bt_añadirPMouseClicked
 
     private void bt_añadirPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_añadirPMouseEntered
@@ -227,7 +243,16 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_añadirPMouseExited
 
     private void bt_añadirP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_añadirP1MouseClicked
-        
+        if (tf_FilepathS.getText().isEmpty() || tf_FilepathA.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "¡Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
+        } else {
+            secciones = new File(archivoS.getPath());
+            secciones.openFileS(secciones);
+            
+            alumnos = new File(archivoA.getPath());
+            alumnos.openFileS(alumnos);
+            JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_bt_añadirP1MouseClicked
 
     private void bt_añadirP1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_añadirP1MouseEntered
@@ -278,8 +303,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel bt_añadirP1;
     private javax.swing.JButton bt_buscarA;
     private javax.swing.JButton bt_buscarS;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel69;
