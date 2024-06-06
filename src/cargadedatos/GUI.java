@@ -250,7 +250,7 @@ public class GUI extends javax.swing.JFrame {
             secciones.openFileS(secciones);
             
             alumnos = new File(archivoA.getPath());
-            alumnos.openFileS(alumnos);
+            alumnos.openFileA(alumnos);
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bt_añadirP1MouseClicked

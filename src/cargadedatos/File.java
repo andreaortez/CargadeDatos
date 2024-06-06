@@ -51,10 +51,11 @@ public class File extends java.io.File {
 
     public void openFileS(java.io.File archivo) {
         this.file = archivo;
+        System.out.println("----------SECCIONES---------");
         if (file.exists()) {
             try {
                 Scanner sc = null;
-                sc = new Scanner(archivo);
+                sc = new Scanner(file);
                 metadata = sc.next();
                 campos = metadata.split(",");
                 for (int i = 0; i < campos.length; i++) {
@@ -69,17 +70,18 @@ public class File extends java.io.File {
 
     public void openFileA(java.io.File archivo) {
         this.file = archivo;
+        System.out.println("----------ALUMNOS---------");
         if (file.exists()) {
             try {
                 Scanner sc = null;
-                sc = new Scanner(archivo);
+                sc = new Scanner(file);
                 metadata = sc.next();
+                System.out.println("error");
                 campos = metadata.split(",");
                 for (int i = 0; i < campos.length; i++) {
                     System.out.println(campos[i]);
                 }
 
-                registros = new ArrayList();
                 String record = new String();
 
                 if (archivo.exists()) {
@@ -88,8 +90,7 @@ public class File extends java.io.File {
                         while (sc.hasNext()) {
                             record = sc.nextLine();
                             for (int i = 0; i < record.length(); i++) {
-                                if ((int) record.charAt(i) == 164) {
-                                }
+                                record = record.replace('ñ', '&');
                             }
 
                             System.out.println(record);
