@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import java.sql.CallableStatement;
+
 /**
  *
  * @author Andrea
@@ -36,11 +37,10 @@ public class File extends java.io.File {
 
         jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
         username = "postgres";
-        password = "1234";
-
-        
+        password = "12345678";
     }
-    public void registros(){
+
+    public void registros() {
         String sqlScript1 = "drop table if Exists SeccionesXAlumno;\n"
                 + "drop table if exists Seccion;\n"
                 + "drop table if exists Curso;\n"
@@ -119,9 +119,6 @@ public class File extends java.io.File {
                 + "EXECUTE 'drop table Relacion';\n"
                 + "END $$;\n"
                 + "\n";
-                
-
-        System.out.println(this.file.getPath());
 
         String sqlScript3 = "CREATE OR REPLACE function Filtro(in pAula_id varchar,in pDias varchar,in pHora varchar,in pFacultad varchar,in pCarrera varchar,in pMateria varchar)\n"
                 + "RETURNS TABLE(Cuenta int,Carrera varchar, Facultad varchar, Seccion int, Aula_id varchar, Dias_Habiles varchar, Hora varchar, Materia varchar)  \n"
@@ -197,29 +194,24 @@ public class File extends java.io.File {
                 + "	from Alumno natural join SeccionesXAlumno natural Join Seccion ' || condicion;\n"
                 + "END $$;";
 
-        
         try {
             connection = DriverManager.getConnection(jdbcUrl, username, password);
             connection.createStatement().execute(sqlScript1);
             connection.createStatement().execute(sqlScript2);
             connection.createStatement().execute(sqlScript3);
             CallableStatement call;
-        try {
-            call = connection.prepareCall("{Call loadFile(?);}");
-            call.setString(1, this.file.getPath());
-            
-            call.execute();
-            System.out.println("llega");
-            
-            
-        } catch (Exception ex) {
-            
-        }
-            
+            try {
+                call = connection.prepareCall("{Call loadFile(?);}");
+                call.setString(1, this.file.getPath());
+                call.execute();
+            } catch (Exception ex) {
+            }
+
         } catch (Exception ex) {
         }
     }
-    public void secciones(){
+
+    public void secciones() {
         String sqlScript4 = "CREATE OR REPLACE PROCEDURE loadSecciones(in direccion varchar)\n"
                 + "LANGUAGE plpgsql\n"
                 + "AS $$\n"
@@ -245,31 +237,23 @@ public class File extends java.io.File {
                 + "    	WHERE r.seccion = s.seccion\n"
                 + "		ON CONFLICT (seccion, codigo_materia) DO NOTHING;\n"
                 + "END $$;";
- 
+
         CallableStatement call;
-        try{
+        try {
             connection.createStatement().execute(sqlScript4);
             call = connection.prepareCall("{Call loadSecciones(?);}");
             call.setString(1, this.file.getPath());
             call.execute();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
         }
     }
+
     public java.io.File getFile() {
         return file;
     }
 
     public void setFile(java.io.File file) {
         this.file = file;
-    }
-
-    public String getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(String metadata) {
-        this.metadata = metadata;
     }
 
     public void openFile(java.io.File archivo, int flag) {
