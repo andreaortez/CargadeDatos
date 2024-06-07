@@ -4,21 +4,17 @@
  */
 package cargadedatos;
 
-import java.sql.Statement;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
-
+import java.sql.CallableStatement;
 /**
  *
  * @author Andrea
@@ -27,19 +23,24 @@ public class File extends java.io.File {
 
     private java.io.File file;
     private String metadata;
-    private String[] campos;
     private ArrayList<String> registros = new ArrayList();
-    Connection connection;
+    private Connection connection;
+    private String jdbcUrl;
+    private String username;
+    private String password;
 
     public File(String pathname) {
         super(pathname);
         this.file = new java.io.File(pathname);
         this.metadata = "";
 
-        String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "1234";
+        jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
+        username = "postgres";
+        password = "1234";
 
+        
+    }
+    public void registros(){
         String sqlScript1 = "drop table if Exists SeccionesXAlumno;\n"
                 + "drop table if exists Seccion;\n"
                 + "drop table if exists Curso;\n"
@@ -117,18 +118,144 @@ public class File extends java.io.File {
                 + "\n"
                 + "EXECUTE 'drop table Relacion';\n"
                 + "END $$;\n"
+                + "\n";
+                
+
+        System.out.println(this.file.getPath());
+
+        String sqlScript3 = "CREATE OR REPLACE function Filtro(in pAula_id varchar,in pDias varchar,in pHora varchar,in pFacultad varchar,in pCarrera varchar,in pMateria varchar)\n"
+                + "RETURNS TABLE(Cuenta int,Carrera varchar, Facultad varchar, Seccion int, Aula_id varchar, Dias_Habiles varchar, Hora varchar, Materia varchar)  \n"
+                + "LANGUAGE plpgsql\n"
+                + "AS $$\n"
+                + "declare \n"
+                + "		condicion varchar = '';\n"
+                + "		contador int = 0;\n"
+                + "Begin\n"
+                + "	/*filtro de aulas*/\n"
+                + "	if(pAula_id != 'TODAS') then\n"
+                + "		select concat(' where ',condicion, 'aula_id = ''', pAula_id, '''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
+                + "	\n"
+                + "	/*filtro de dias*/\n"
+                + "	if(pDias != 'TODAS') then\n"
+                + "		if(contador = 1) then\n"
+                + "			select concat(condicion, ' and ') into condicion;\n"
+                + "		elsif(contador = 0) then\n"
+                + "			select concat('where ' ,condicion) into condicion;\n"
+                + "		end if;\n"
+                + "		select concat(condicion, 'dias_habiles like ''%', pDias, '%''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
+                + "	\n"
+                + "	\n"
+                + "	/*filtro de hora*/\n"
+                + "	if(pHora != 'TODAS') then\n"
+                + "		if(contador = 1) then\n"
+                + "			select concat(condicion, ' and ') into condicion;\n"
+                + "		elsif(contador = 0) then\n"
+                + "			select concat('where ' ,condicion) into condicion;\n"
+                + "		end if;\n"
+                + "		select concat(condicion, 'hora = ''', pHora, '''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
+                + "	\n"
+                + "	/*filtro de facultad*/\n"
+                + "	if(pFacultad != 'TODAS') then\n"
+                + "		if(contador = 1) then\n"
+                + "			select concat(condicion, ' and ') into condicion;\n"
+                + "		elsif(contador = 0) then\n"
+                + "			select concat('where ', condicion) into condicion;\n"
+                + "		end if;\n"
+                + "		select concat(condicion, 'facultad = ''', pFacultad,'''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
+                + "	\n"
+                + "	/*filtro de carrera*/\n"
+                + "	if(pCarrera != 'TODAS') then\n"
+                + "		if(contador = 1) then\n"
+                + "			select concat(condicion, ' and ') into condicion;\n"
+                + "		elsif(contador = 0) then\n"
+                + "			select concat('where ', condicion) into condicion;\n"
+                + "		end if;\n"
+                + "		select concat(condicion, 'carrera = ''',pCarrera,'''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
+                + "	\n"
+                + "	/*filtro de materia*/\n"
+                + "	if(pMateria != 'TODAS') then\n"
+                + "		if(contador = 1) then\n"
+                + "			select concat(condicion, ' and ') into condicion;\n"
+                + "		elsif(contador = 0) then\n"
+                + "			select concat('where ', condicion) into condicion;\n"
+                + "		end if;\n"
+                + "		select concat(condicion, 'carrera = ''',pMateria,'''') into condicion;\n"
+                + "		contador := 1;\n"
+                + "	end if;\n"
                 + "\n"
-                + "Call loadfile('" + this.file.getPath() + "');";
+                + "	return query execute 'select cuenta, carrera, facultad, seccion, aula_id, dias_habiles, hora, materia\n"
+                + "	from Alumno natural join SeccionesXAlumno natural Join Seccion ' || condicion;\n"
+                + "END $$;";
+
+        
         try {
             connection = DriverManager.getConnection(jdbcUrl, username, password);
             connection.createStatement().execute(sqlScript1);
             connection.createStatement().execute(sqlScript2);
-            System.out.println("funciono");
-
+            connection.createStatement().execute(sqlScript3);
+            CallableStatement call;
+        try {
+            call = connection.prepareCall("{Call loadFile(?);}");
+            call.setString(1, this.file.getPath());
+            
+            call.execute();
+            System.out.println("llega");
+            
+            
+        } catch (Exception ex) {
+            
+        }
+            
         } catch (Exception ex) {
         }
     }
-
+    public void secciones(){
+        String sqlScript4 = "CREATE OR REPLACE PROCEDURE loadSecciones(in direccion varchar)\n"
+                + "LANGUAGE plpgsql\n"
+                + "AS $$\n"
+                + "Begin\n"
+                + "EXECUTE 'drop table if exists Relacion;\n"
+                + "	create table Relacion(\n"
+                + "	horas varchar,\n"
+                + "	codigo_materia varchar,\n"
+                + "	seccion int primary key,\n"
+                + "	codigo_aula varchar,\n"
+                + "	dias_habiles varchar\n"
+                + "	)';\n"
+                + "EXECUTE format(\n"
+                + "        'copy Relacion(horas, codigo_materia, seccion, codigo_aula, dias_habiles) \n"
+                + "		FROM %L \n"
+                + "		DELIMITER '',''\n"
+                + "		CSV HEADER\n"
+                + "		',direccion);\n"
+                + "		\n"
+                + "		UPDATE Seccion s\n"
+                + "    	SET dias_habiles = r.dias_habiles\n"
+                + "    	FROM Relacion r\n"
+                + "    	WHERE r.seccion = s.seccion\n"
+                + "		ON CONFLICT (seccion, codigo_materia) DO NOTHING;\n"
+                + "END $$;";
+ 
+        CallableStatement call;
+        try{
+            connection.createStatement().execute(sqlScript4);
+            call = connection.prepareCall("{Call loadSecciones(?);}");
+            call.setString(1, this.file.getPath());
+            call.execute();
+        }catch(Exception e){
+            
+        }
+    }
     public java.io.File getFile() {
         return file;
     }
@@ -151,7 +278,6 @@ public class File extends java.io.File {
         if (flag == 1) {//si son los datos del alumno
             FileWriter fw = null;
             BufferedWriter bw = null;
-            System.out.println("----------ALUMNOS---------");
             if (file.exists()) {
                 try {
                     Scanner sc = new Scanner(new FileInputStream(file));
@@ -165,7 +291,6 @@ public class File extends java.io.File {
                         metadata = metadata.substring(0, tam1);
                     }
 
-                    System.out.println(metadata);
                     String s = metadata + "\n";
 
                     String record = new String();
@@ -181,7 +306,6 @@ public class File extends java.io.File {
                                 record = record.substring(0, tam2 - 1);
                             }
 
-                            System.out.println(record);
                             s += record + "\n";
                             registros.add(record);
 
@@ -195,6 +319,7 @@ public class File extends java.io.File {
                     fw.close();
                     sc.close();
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         }

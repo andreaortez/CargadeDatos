@@ -250,12 +250,13 @@ public class GUI extends javax.swing.JFrame {
         if (tf_FilepathS.getText().isEmpty() || tf_FilepathA.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "¡Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
         } else {
-            secciones = new File(archivoS.getPath());
-            secciones.openFile(secciones, 0);
-
             alumnos = new File(archivoA.getPath());
+            alumnos.registros();
             alumnos.openFile(alumnos, 1);
-
+            
+            secciones = new File(archivoS.getPath());
+            secciones.secciones();
+            
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bt_cargarAMouseClicked
