@@ -37,7 +37,7 @@ public class File extends java.io.File {
 
         jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
         username = "postgres";
-        password = "12345678";
+        password = "1234";
     }
 
     public void registros() {

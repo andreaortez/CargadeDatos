@@ -264,6 +264,7 @@ public class GUI extends javax.swing.JFrame {
             archivo.secciones();
 
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
+            this.dispose();
         }
     }//GEN-LAST:event_bt_cargarAMouseClicked
 

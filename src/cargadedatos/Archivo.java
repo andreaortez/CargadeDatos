@@ -37,17 +37,14 @@ public class Archivo {
     private String setup = "";
 
     public Archivo(java.io.File fileRegistros, java.io.File fileSecciones) {
-
         this.fileRegistros = fileRegistros;
         this.fileSecciones = fileSecciones;
         System.out.println(fileRegistros.getPath());
         System.out.println(fileSecciones.getPath());
-        //jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
-        //username = "postgres";
-        //password = "1234"
-        jdbcUrl = "jdbc:postgresql://localhost:2606/Hackaton";
+        
+        jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
         username = "postgres";
-        password = "Emilio2606";
+        password = "12345678";
 
         try {
             connection = DriverManager.getConnection(jdbcUrl, username, password);
