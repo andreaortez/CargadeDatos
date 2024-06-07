@@ -41,13 +41,13 @@ public class Archivo {
         this.fileSecciones = fileSecciones;
         System.out.println(fileRegistros.getPath());
         System.out.println(fileSecciones.getPath());
-        
+
         jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
         username = "postgres";
         password = "12345678";
 
         try {
-            connection = DriverManager.getConnection(jdbcUrl, username, password);
+            connection = DriverManager.getConnection(jdbcUrl, username, password);//se crea la conexion a postgres
         } catch (SQLException ex) {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -281,7 +281,7 @@ public class Archivo {
                     + "	cuenta int not null references Alumno(cuenta),\n"
                     + "	primary key(seccion, cuenta)\n"
                     + ");";
-            
+
             connection.createStatement().execute(sqlScript1);
             CallableStatement call;
             call = connection.prepareCall("call loadFile(?)");
@@ -301,7 +301,7 @@ public class Archivo {
             call = connection.prepareCall("call public.loadSecciones(?)");
             call.setString(1, this.fileSecciones.getPath());
             call.execute();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -315,7 +315,7 @@ public class Archivo {
         this.metadata = metadata;
     }
 
-    public void openFile() {
+    public void openFile() {//lee el file, lo corrige y guarda las correciones
         java.io.File file = this.fileRegistros;
 
         FileWriter fw = null;
@@ -367,7 +367,7 @@ public class Archivo {
 
     }
 
-    public boolean ValidFile(java.io.File file, int num) {
+    public boolean ValidFile(java.io.File file, int num) {//se valida si se ingresaron correctamente los archivos en el espacio correspondiente
         if (file.exists()) {
             try {
                 RandomAccessFile rf = new RandomAccessFile(file, "rw");
