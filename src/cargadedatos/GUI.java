@@ -247,10 +247,10 @@ public class GUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "¡Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
         } else {
             secciones = new File(archivoS.getPath());
-            secciones.openFileS(secciones);
+            secciones.openFile(secciones, 0);
             
             alumnos = new File(archivoA.getPath());
-            alumnos.openFileA(alumnos);
+            alumnos.openFile(alumnos,1);
             
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
         }
