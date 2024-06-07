@@ -15,12 +15,12 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
  * @author Andrea
  */
 public class GUI extends javax.swing.JFrame {
-
-    File secciones = null;
-    File alumnos = null;
+    Archivo archivo = null;
+    //File secciones = null;
+    //File alumnos = null;
     java.io.File archivoS = null;
     java.io.File archivoA = null;
-
+            
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -201,6 +201,7 @@ public class GUI extends javax.swing.JFrame {
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivoS = jfc.getSelectedFile();
                 File f = new File(archivoS.getPath());
+                System.out.println(archivoS);
                 if (f.ValidFile(archivoS, 0)) {
                     tf_FilepathS.setText(archivoS.getName());
                 }
@@ -223,6 +224,7 @@ public class GUI extends javax.swing.JFrame {
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivoA = jfc.getSelectedFile();
                 File f = new File(archivoA.getPath());
+               
                 if (f.ValidFile(archivoA, 1)) {
                     tf_FilepathA.setText(archivoA.getName());
                 }
@@ -250,12 +252,16 @@ public class GUI extends javax.swing.JFrame {
         if (tf_FilepathS.getText().isEmpty() || tf_FilepathA.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "¡Debe subir ambos archivos!", "Warning", WARNING_MESSAGE);
         } else {
-            alumnos = new File(archivoA.getPath());
-            alumnos.registros();
-            alumnos.openFile(alumnos, 1);
+            archivo = new Archivo(archivoA, archivoS);
             
-            secciones = new File(archivoS.getPath());
-            secciones.secciones();
+            //este metodo genera la base de datos
+            archivo.setup();
+            //este metodo cambia inconsistencias mediante regex
+            archivo.openFile();
+            //escribe registros
+            archivo.registros();
+                //escribe secciones
+            archivo.secciones();
             
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
         }
