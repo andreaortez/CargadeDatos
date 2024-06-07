@@ -200,8 +200,10 @@ public class GUI extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivoS = jfc.getSelectedFile();
-                tf_FilepathS.setText(archivoS.getName());
-
+                File f = new File(archivoS.getPath());
+                if (f.ValidFile(archivoS, 0)) {
+                    tf_FilepathS.setText(archivoS.getName());
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "¡Ocurrió un error!", "Warning", WARNING_MESSAGE);
             }
@@ -220,8 +222,10 @@ public class GUI extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivoA = jfc.getSelectedFile();
-                tf_FilepathA.setText(archivoA.getName());
-
+                File f = new File(archivoA.getPath());
+                if (f.ValidFile(archivoA, 1)) {
+                    tf_FilepathA.setText(archivoA.getName());
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "¡Ocurrió un error!", "Warning", WARNING_MESSAGE);
             }
@@ -248,10 +252,10 @@ public class GUI extends javax.swing.JFrame {
         } else {
             secciones = new File(archivoS.getPath());
             secciones.openFile(secciones, 0);
-            
+
             alumnos = new File(archivoA.getPath());
-            alumnos.openFile(alumnos,1);
-            
+            alumnos.openFile(alumnos, 1);
+
             JOptionPane.showMessageDialog(this, "¡Archivo cargado con éxito!", "Notification", INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_bt_cargarAMouseClicked
@@ -298,6 +302,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bt_añadirP;

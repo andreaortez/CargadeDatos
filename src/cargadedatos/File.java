@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 /**
  *
@@ -143,21 +145,6 @@ public class File extends java.io.File {
         this.metadata = metadata;
     }
 
-    public void executeSqlScript(Connection c, String sqlScript) {
-        try (Statement statement = connection.createStatement()) {
-            String[] sqlStatements = sqlScript.split(";");
-
-            for (String sql : sqlStatements) {
-                if (!sql.trim().isEmpty()) {
-                    statement.execute(sql.trim());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al ejecutar el script SQL");
-            e.printStackTrace();
-        }
-    }
-
     public void openFile(java.io.File archivo, int flag) {
         this.file = archivo;
 
@@ -212,4 +199,27 @@ public class File extends java.io.File {
             }
         }
     }
+
+    public boolean ValidFile(java.io.File archivo, int num) {
+        this.file = archivo;
+
+        if (file.exists()) {
+            try {
+                RandomAccessFile rf = new RandomAccessFile(file, "rw");
+                String header = rf.readLine();
+                if (header.contains("dias") && num == 1) {
+                    JOptionPane.showMessageDialog(null, "Elija un archivo para alumnos", "Cargar Archivo", WARNING_MESSAGE);
+                    return false;
+                } else if (!header.contains("dias") && num == 0) {
+                    JOptionPane.showMessageDialog(null, "Elija un archivo para secciones", "Cargar Archivo", WARNING_MESSAGE);
+                    return false;
+                }
+
+                rf.close();
+            } catch (Exception ex) {
+            }
+        }
+        return true;
+    }
+
 }
